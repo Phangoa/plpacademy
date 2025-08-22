@@ -96,3 +96,4 @@ print_md("- 🇱🇸 Lesotho has relatively low case counts but a high death rat
 print_md("- 🌍 Vaccination rollout varies widely, with some countries reaching over 70% coverage while others lag below 20%.")
 print_md("- 📉 Death rates tend to decrease as vaccination rates increase, suggesting vaccine effectiveness.")
 
+
