@@ -1,18 +1,18 @@
-# 📦 Import Required Libraries
+#Importing Required Libraries
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
 
-# 📁 Load the Dataset
+# the Dataset
 df = pd.read_csv("owid-covid-data.csv")
 
-# 🧭 Initial Exploration
+# Initial Exploration
 print("Columns:", df.columns.tolist())
 print("Shape:", df.shape)
 print("Missing values:\n", df.isnull().sum().sort_values(ascending=False))
 
-# 🧹 Data Cleaning
+# Data Cleaning
 # Filter for selected countries
 countries = ['Kenya', 'India', 'United States', 'South Africa', 'Lesotho']
 df = df[df['location'].isin(countries)]
@@ -27,11 +27,11 @@ df = df.dropna(subset=['date', 'total_cases', 'total_deaths'])
 numeric_cols = ['new_cases', 'new_deaths', 'total_vaccinations']
 df[numeric_cols] = df[numeric_cols].fillna(0)
 
-# 🧮 Feature Engineering
+# Feature Engineering
 df['death_rate'] = df['total_deaths'] / df['total_cases']
 df['vaccination_rate'] = df['total_vaccinations'] / df['population']
 
-# 📊 Exploratory Data Analysis (EDA)
+# Exploratory Data Analysis (EDA)
 # Line plot: Total cases over time
 plt.figure(figsize=(12,6))
 for country in countries:
@@ -58,7 +58,7 @@ plt.ylabel("Country")
 plt.tight_layout()
 plt.show()
 
-# 🧬 Vaccination Progress
+# Vaccination Progress
 plt.figure(figsize=(12,6))
 for country in countries:
     country_data = df[df['location'] == country]
@@ -71,7 +71,7 @@ plt.grid(True)
 plt.tight_layout()
 plt.show()
 
-# 🗺️ Choropleth Map (Optional)
+# Choropleth Map (Optional)
 choropleth_df = latest_data[['iso_code', 'location', 'total_cases']]
 fig = px.choropleth(
     choropleth_df,
@@ -82,18 +82,3 @@ fig = px.choropleth(
     color_continuous_scale="Reds"
 )
 fig.show()
-
-# 🧠 Insights Summary (Markdown-style for Jupyter)
-from IPython.display import Markdown, display
-
-def print_md(text):
-    display(Markdown(text))
-
-print_md("### Key Insights")
-print_md("- 🇺🇸 The United States has consistently led in total cases and vaccinations.")
-print_md("- 🇮🇳 India shows a steep rise in cases during mid-2021, followed by aggressive vaccination.")
-print_md("- 🇱🇸 Lesotho has relatively low case counts but a high death rate, indicating potential underreporting or healthcare challenges.")
-print_md("- 🌍 Vaccination rollout varies widely, with some countries reaching over 70% coverage while others lag below 20%.")
-print_md("- 📉 Death rates tend to decrease as vaccination rates increase, suggesting vaccine effectiveness.")
-
-
